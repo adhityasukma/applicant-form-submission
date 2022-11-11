@@ -98,29 +98,33 @@ class Applicant_Form_Submission {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+        /**
+         * All Functions
+         */
+        require_once AFS_INC_DIR . '/functions.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-applicant-form-submission-loader.php';
+		require_once AFS_INC_DIR . '/class-applicant-form-submission-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-applicant-form-submission-i18n.php';
+		require_once AFS_INC_DIR . '/class-applicant-form-submission-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-applicant-form-submission-admin.php';
+		require_once AFS_ADMIN_DIR . '/class-applicant-form-submission-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-applicant-form-submission-public.php';
+		require_once AFS_PUBLIC_DIR . '/class-applicant-form-submission-public.php';
 
 		$this->loader = new Applicant_Form_Submission_Loader();
 
@@ -156,6 +160,9 @@ class Applicant_Form_Submission {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'afs_admin_page' );
+		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'afs_dashboard_setup' );
+
 
 	}
 
@@ -172,7 +179,7 @@ class Applicant_Form_Submission {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+        $this->loader->add_shortcode( 'applicant_form', $plugin_public, 'applicant_form_view' );
 	}
 
 	/**

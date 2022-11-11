@@ -36,6 +36,13 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'AFS_VERSION', '0.0.1' );
+define('AFS_FILE', __FILE__);
+define('AFS_DIR', __DIR__);
+define('AFS_ADMIN_DIR', plugin_dir_path(__FILE__) . '/admin');
+define('AFS_PUBLIC_DIR', plugin_dir_path(__FILE__) . '/public');
+define('AFS_INC_DIR', plugin_dir_path(__FILE__) . '/includes');
+define('AFS_DIR_PATH', plugin_dir_path(__FILE__));
+define('AFS_DIR_URL', plugin_dir_url(__FILE__));
 
 /**
  * The code that runs during plugin activation.

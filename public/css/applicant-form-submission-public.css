@@ -2,3 +2,21 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.afs-container{
+  width: 100%;
+}
+.afs-container form .afs-form-section:not(:first-child){
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+.afs-container form .afs-form-section label{
+  width: 100%;
+  display: block;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.afs-container form .afs-form-section input.afs-form-input{
+  width: 100%;
+  display: block;
+}

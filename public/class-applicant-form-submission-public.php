@@ -53,6 +53,9 @@ class Applicant_Form_Submission_Public {
 		$this->version = $version;
 
 	}
+    public function applicant_form_view($atts, $content = null){
+        include_once AFS_PUBLIC_DIR . '/partials/applicant-form-submission-public-display.php';
+    }
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
