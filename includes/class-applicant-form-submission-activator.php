@@ -59,10 +59,9 @@ class Applicant_Form_Submission_Activator {
                     `email_address` varchar(255) DEFAULT NULL,
                     `mobile_phone` varchar(255) DEFAULT NULL,
                     `post_name` varchar(255) DEFAULT NULL,
-                    `cv_id` bigint(20) DEFAULT NULL,
+                    `cv` varchar(255) DEFAULT NULL,
                     `created_at` datetime DEFAULT NULL,
-                    PRIMARY KEY (`id`),
-                    KEY `cv_id` (`cv_id`)
+                    PRIMARY KEY (`id`)
                ) ENGINE=InnoDB {$wpdb->get_charset_collate()};";
 
         dbDelta( $sql );

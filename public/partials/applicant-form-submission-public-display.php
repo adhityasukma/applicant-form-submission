@@ -13,7 +13,9 @@
  */
 ?>
 <div class="afs-container">
-    <form method="post" enctype="multipart/form-data" class="afs-form-submission">
+    <div class="afs-alert">Thank you for Submission</div>
+    <form method="post" class="afs-form-submission">
+        <?php echo wp_nonce_field( 'afs_security_form', 'token_security' ); ?>
         <div class="afs-form-section">
             <label for="afs-nama-depan">
              <?php esc_attr_e("First Name","afs");?>
@@ -34,7 +36,7 @@
         </div>
         <div class="afs-form-section">
             <label for="afs-email-address">
-                <?php esc_attr_e("Email Address","afs");?>
+                <?php esc_attr_e("Email Address *","afs");?>
             </label>
             <input type="text" name="afs-email-address" id="afs-email-address" class="afs-form-input" placeholder="Enter Email Address">
         </div>
@@ -54,11 +56,12 @@
             <label for="afs-cv">
                 <?php esc_attr_e("CV","afs");?>
             </label>
-            <input type="file" name="afs-cv" id="afs-cv" accept=".doc, .docx, .pdf" class="afs-form-input" placeholder="CV">
+            <input type="file" name="afs-cv" id="afs-cv" accept=".doc, .docx, .pdf" class="afs-form-input afs-cv" placeholder="CV">
         </div>
         <div class="afs-form-section">
-            <input type="submit" name="afs-btn-submit" class="afs-form-input" value="Submit">
+            <button type="button" name="afs-btn-submit" class="afs-form-input afs-btn-submit"><span class="afs-button__text"><?php esc_attr_e("Submit","afs");?></span></button>
         </div>
+
     </form>
 </div>
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->

@@ -61,30 +61,71 @@ class Applicant_Form_Submission_Admin
      */
     public function afs_dashboard_setup()
     {
-        wp_add_dashboard_widget('dashboard_widget', 'Applicant Form Submission by Adhitya', array($this,'asf_dashboard_widget_view'));
+        wp_add_dashboard_widget('dashboard_widget', 'Applicant Form Submission by Adhitya', array($this, 'asf_dashboard_widget_view'));
     }
+
     /**
      * Display a new dashboard widget.
      * From function afs_dashboard_setup
      */
     public function asf_dashboard_widget_view()
     {
-       echo "afs_dashboard_setup";
+        $result = get_all_submission();
+        include_once AFS_ADMIN_DIR . '/partials/applicant-form-submission-widget-dashboard.php';
     }
+
     /**
      * Add a new admin menu page.
      */
     public function afs_admin_page()
     {
-        $parent_slug ="afs";
-        $domain_slug ="afs";
+        $parent_slug = "afs";
+        $domain_slug = "afs";
         add_menu_page(__('Applicant Form Submission', $domain_slug), __('Applicant Form Submission', $domain_slug), 'manage_options', $parent_slug, array($this, 'afs_page'));
     }
+
     /**
      * Display a admin menu page.
      */
-    public function afs_page(){
+    public function afs_page()
+    {
         include_once AFS_ADMIN_DIR . '/partials/applicant-form-submission-admin-display.php';
+    }
+
+    public function afs_redirect()
+    {
+        if (isset($_POST['afs-search'])) {
+            $security = isset($_POST['token_security']) ? sanitize_text_field($_POST['token_security']) : '';
+            $search = isset($_POST['s']) ? trim($_POST['s']) : '';
+            $url = isset($_POST['_wp_http_referer']) ? $_POST['_wp_http_referer'] : '';
+            if (wp_verify_nonce($security, 'afs_security_search_form')) {
+                if ($url) {
+                    delete_transient("afs_delete_submission");
+                    $url = add_query_arg("s", $search, $url);
+                    wp_redirect($url);
+                }
+            }
+        }
+        if (isset($_GET['action']) && isset($_GET['_afsnonce']) && isset($_GET['id'])) {
+            if ($_GET['action'] === "delete") {
+                global $wpdb;
+                $security = $_GET['_afsnonce'];
+                if (wp_verify_nonce($security, 'afs_security')) {
+                    if ($_GET['id']) {
+                        $id = $_GET['id'];
+                        $wpdb->delete("{$wpdb->prefix}applicant_submissions", array('ID' => $id), array('%d'));
+                        if (!$wpdb->show_errors()) {
+                            set_transient("afs_delete_submission", "Data berhasil dihapus", 5);
+                        } else {
+                            set_transient("afs_delete_submission", "Data gagal dihapus", 5);
+                        }
+
+                        $url = admin_url("?page=afs");
+                        wp_redirect($url);
+                    }
+                }
+            }
+        }
     }
 
     /**

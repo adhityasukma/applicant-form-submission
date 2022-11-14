@@ -162,7 +162,7 @@ class Applicant_Form_Submission {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'afs_admin_page' );
 		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'afs_dashboard_setup' );
-
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'afs_redirect' );
 
 	}
 
@@ -179,6 +179,8 @@ class Applicant_Form_Submission {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_ajax_afs_submission_submit', $plugin_public, 'afs_submission_submit' );
+		$this->loader->add_action( 'wp_ajax_nopriv_afs_submission_submit', $plugin_public, 'afs_submission_submit' );
         $this->loader->add_shortcode( 'applicant_form', $plugin_public, 'applicant_form_view' );
 	}
 
