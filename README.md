@@ -4,6 +4,9 @@ A form to collect Applicant information including a field to upload applicant CV
 # Admin page
 The menu page is the **Applicant Form Submission**.
 
+# Plugin Name
+Applicant Form Submission by Adhitya
+
 # Feature
 1. Add Search
 2. Sort column (by submission date)
